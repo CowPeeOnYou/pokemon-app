@@ -21,7 +21,7 @@ const Home: NextPage = () => {
             className="w-full h-full"
             src={firstPokemon.data?.sprites.front_default}
           />
-          <div className="text-xl text-center capitalize">{firstPokemon.data?.name}</div>
+          <div className="text-xl text-center capitalize mt-[-2rem]">{firstPokemon.data?.name}</div>
         </div>
         <div className="p-8">Vs</div>
         <div className="w-64 h-64 flex flex-col">
@@ -29,7 +29,7 @@ const Home: NextPage = () => {
             className="w-full h-full"
             src={secondPokemon.data?.sprites.front_default}
           />
-            <div className="text-xl text-center capitalize">{secondPokemon.data?.name}</div>
+            <div className="text-xl text-center capitalize  mt-[-2rem]">{secondPokemon.data?.name}</div>
         </div>
         <div className="p-2" />
       </div>
