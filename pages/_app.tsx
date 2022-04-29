@@ -1,14 +1,12 @@
 import '../styles/globals.css'
-import type { AppProps } from 'next/app'
-
-function MyApp({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />
-}
-
 
 import { withTRPC } from '@trpc/next';
-import type { AppRouter } from './api/trpc/[trpc]';
+import { AppType } from 'next/dist/shared/lib/utils';
+import { AppRouter } from './api/trpc/[trpc]';
 
+const MyApp: AppType = ({ Component, pageProps }) => {
+  return <Component {...pageProps} />;
+};
 
 export default withTRPC<AppRouter>({
   config({ ctx }) {
@@ -23,7 +21,7 @@ export default withTRPC<AppRouter>({
     return {
       url,
       /**
-       * @link https://react-query.tanstack.com/reference/QueryClient
+      //  * @link https://react-query.tanstack.com/reference/QueryClient
        */
       // queryClientConfig: { defaultOptions: { queries: { staleTime: 60 } } },
     };
