@@ -11,6 +11,12 @@ const Home: NextPage = () => {
 
   if (firstPokemon.isLoading || secondPokemon.isLoading) return null;
 
+  const votingHandler = (selected: number) => {
+    //todo: fire mutaiton to persist changes
+
+    updateIds(getOptionsForVote);
+  };
+
   return (
     <div className="h-screen w-screen flex flex-col justify-center items-center">
       <div className="text-2xl text-center">Which Pokemon is cuter?</div>
@@ -21,7 +27,10 @@ const Home: NextPage = () => {
             className="w-full h-full"
             src={firstPokemon.data?.sprites.front_default}
           />
-          <div className="text-xl text-center capitalize mt-[-2rem]">{firstPokemon.data?.name}</div>
+          <div className="text-xl text-center capitalize mt-[-2rem]">
+            {firstPokemon.data?.name}
+          </div>
+          <button onClick={() => votingHandler(first)}>Cuter</button>
         </div>
         <div className="p-8">Vs</div>
         <div className="w-64 h-64 flex flex-col">
@@ -29,12 +38,15 @@ const Home: NextPage = () => {
             className="w-full h-full"
             src={secondPokemon.data?.sprites.front_default}
           />
-            <div className="text-xl text-center capitalize  mt-[-2rem]">{secondPokemon.data?.name}</div>
+          <div className="text-xl text-center capitalize  mt-[-2rem]">
+            {secondPokemon.data?.name}
+          </div>
+          <button onClick={() => votingHandler(second)}>Cuter</button>
         </div>
         <div className="p-2" />
       </div>
     </div>
-  ); 
+  );
 };
 
 export default Home;
