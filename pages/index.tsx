@@ -13,11 +13,18 @@ const Home: NextPage = () => {
   const firstPokemon = trpc.useQuery(["get-pokemon-by-id", { id: first }]);
   const secondPokemon = trpc.useQuery(["get-pokemon-by-id", { id: second }]);
 
+  const voteMutation = trpc.useMutation(["cast-vote"]);
+  
+
   if (firstPokemon.isLoading || secondPokemon.isLoading) return null;
 
   const votingHandler = (selected: number) => {
     //todo: fire mutaiton to persist changes
-
+    if (selected === first){
+      voteMutation.mutate({votedFor: first, votedAgainst: second})
+    } else {
+      voteMutation.mutate({votedFor: second, votedAgainst: first})
+    }
     updateIds(getOptionsForVote);
   };
 
@@ -57,10 +64,7 @@ const PokemonList: React.FC<{
 }> = (props) => {
   return (
     <div className="flex flex-col items-center">
-      <img
-        className="w-64 h-64 "
-        src={props.pokemon.sprites.front_default}
-      />
+      <img className="w-64 h-64 " src={props.pokemon.sprites.front_default} />
       <div className="text-xl text-center capitalize mt-[-2rem]">
         {props.pokemon.name}
       </div>
