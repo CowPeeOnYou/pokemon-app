@@ -1,9 +1,11 @@
 import type { NextPage } from "next";
 import { useMemo, useState } from "react";
 import { getOptionsForVote } from "../utils/randomPokemon";
-import { trpc } from "../utils/trpc";
+import { inferQueryResponse, trpc } from "../utils/trpc";
+import type React from "react";
 
-const btn = 'inline-flex items-center px-2.5 py-1.5 border border-gray-300 shadow-sm text-xs font-medium rounded text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
+const btn =
+  "inline-flex items-center px-2.5 py-1.5 border border-gray-300 shadow-sm text-xs font-medium rounded text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500";
 
 const Home: NextPage = () => {
   const [ids, updateIds] = useState(() => getOptionsForVote());
@@ -24,17 +26,18 @@ const Home: NextPage = () => {
       <div className="text-2xl text-center">Which Pokemon is cuter?</div>
       <div className="p-2" />
       <div className="border rounded p-8 flex justify-between items-center max-w-2xl">
-        <div className="w-64 h-64 flex flex-col items-center">
-          <img
-            className="w-full h-full"
-            src={firstPokemon.data?.sprites.front_default}
-          />
-          <div className="text-xl text-center capitalize mt-[-2rem]">
-            {firstPokemon.data?.name}
-          </div>
-          <button className={btn} onClick={() => votingHandler(first)}>Cuter</button>
-        </div>
-        <div className="p-8">Vs</div>
+        {!firstPokemon.isLoading &&
+          firstPokemon.data &&
+          !secondPokemon.isLoading &&
+          secondPokemon.data && (
+            <>
+              <PokemonList
+                pokemon={firstPokemon.data}
+                vote={() => votingHandler(first)}
+              />
+              <div className="p-8">Vs</div>
+            </>
+          )}
         <div className="w-64 h-64 flex flex-col items-center">
           <img
             className="w-full h-full"
@@ -43,7 +46,9 @@ const Home: NextPage = () => {
           <div className="text-xl text-center capitalize  mt-[-2rem]">
             {secondPokemon.data?.name}
           </div>
-          <button className={btn} onClick={() => votingHandler(second)}>Cuter</button>
+          <button className={btn} onClick={() => votingHandler(second)}>
+            Cuter
+          </button>
         </div>
         <div className="p-2" />
       </div>
@@ -52,3 +57,24 @@ const Home: NextPage = () => {
 };
 
 export default Home;
+
+type PokemonFromServer = inferQueryResponse<"get-pokemon-by-id">;
+const PokemonList: React.FC<{
+  pokemon: PokemonFromServer;
+  vote: () => void;
+}> = (props) => {
+  return (
+    <div className="w-64 h-64 flex flex-col items-center">
+      <img
+        className="w-full h-full"
+        src={props.pokemon.sprites.front_default}
+      />
+      <div className="text-xl text-center capitalize mt-[-2rem]">
+        {props.pokemon.name}
+      </div>
+      <button className={btn} onClick={() => props.vote()}>
+        Cuter
+      </button>
+    </div>
+  );
+};
