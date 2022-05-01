@@ -23,7 +23,7 @@ const Home: NextPage = () => {
 
   return (
     <div className="h-screen w-screen flex flex-col justify-center items-center">
-      <div className="text-2xl text-center">Which Pokemon is cuter?</div>
+      <div className="text-2xl text-center">Whi ch Pokemon is cuter?</div>
       <div className="p-2" />
       <div className="border rounded p-8 flex justify-between items-center max-w-2xl">
         {!firstPokemon.isLoading &&
@@ -36,20 +36,12 @@ const Home: NextPage = () => {
                 vote={() => votingHandler(first)}
               />
               <div className="p-8">Vs</div>
+              <PokemonList
+                pokemon={secondPokemon.data}
+                vote={() => votingHandler(second)}
+              />
             </>
           )}
-        <div className="w-64 h-64 flex flex-col items-center">
-          <img
-            className="w-full h-full"
-            src={secondPokemon.data?.sprites.front_default}
-          />
-          <div className="text-xl text-center capitalize  mt-[-2rem]">
-            {secondPokemon.data?.name}
-          </div>
-          <button className={btn} onClick={() => votingHandler(second)}>
-            Cuter
-          </button>
-        </div>
         <div className="p-2" />
       </div>
     </div>
@@ -64,9 +56,9 @@ const PokemonList: React.FC<{
   vote: () => void;
 }> = (props) => {
   return (
-    <div className="w-64 h-64 flex flex-col items-center">
+    <div className="flex flex-col items-center">
       <img
-        className="w-full h-full"
+        className="w-64 h-64 "
         src={props.pokemon.sprites.front_default}
       />
       <div className="text-xl text-center capitalize mt-[-2rem]">
