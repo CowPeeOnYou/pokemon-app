@@ -56,15 +56,19 @@ const ResultsPage: React.FC<{
   return (
     <>
       <Link href="/">
-        <a className="ml-8 absolute top-4"><img width="48px" height="48px" src="..//arrow.png"/></a>
+        <a className="ml-8 absolute top-4">
+          <img width="48px" height="48px" src="..//arrow.png" />
+        </a>
       </Link>
       <div className="flex flex-col items-center">
         <h1 className="text-2xl p-4">Results</h1>
         <div className="p-2" />
         <div className="flex flex-col w-full max-w-2xl border">
-          {props.pokemon.map((currentPokemon, index) => {
-            return <PokemonList pokemon={currentPokemon} key={index} />;
-          })}
+          {props.pokemon
+            .sort((a, b) => generateCountPercent(b) - generateCountPercent(a))
+            .map((currentPokemon, index) => {
+              return <PokemonList pokemon={currentPokemon} key={index} />;
+            })}
         </div>
       </div>
     </>
