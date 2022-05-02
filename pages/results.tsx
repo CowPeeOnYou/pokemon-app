@@ -26,19 +26,30 @@ const getPokemonInOrder = async () => {
 
 type PokemonQueryResult = AsyncReturnType<typeof getPokemonInOrder>;
 
+const generateCountPercent = (pokemon: PokemonQueryResult[number]) => {
+    const {VoteFor, VoteAgainst} = pokemon._count;
+    if(VoteFor+VoteAgainst === 0) {
+        return 0
+    }
+    return (VoteFor / (VoteFor + VoteAgainst)) *100;
+}
+
 const PokemonList: React.FC<{ pokemon: PokemonQueryResult[number] }> = (
-  props
+  {pokemon}
 ) => {
   return (
-    <div className="flex border-b p-2 items-center w-full max-w-2xl">
+    <div className="flex border-b p-2 items-center justify-between">
       {" "}
-      <Image
-        layout="fixed"
-        src={props.pokemon.spriteUrl}
-        width={64}
-        height={64}
-      />
-      <div className="capitalize">{props.pokemon.name}</div>
+      <div className="flex items-center">
+        <Image
+          layout="fixed"
+          src={pokemon.spriteUrl}
+          width={64}
+          height={64}
+        />
+        <div className="pl-2 capitalize">{pokemon.name}</div>
+      </div>
+      <div className='pr-3'>{generateCountPercent(pokemon) + "%"}</div>
     </div>
   );
 };
@@ -49,12 +60,12 @@ const ResultsPage: React.FC<{
   return (
     <div className="flex flex-col items-center">
       <h1 className="text-2xl p-4">Results</h1>
-      <div className="flex flex-col items-center w-full max-w-2xl border">
-        <div className="p-2"/.
-      {props.pokemon.map((currentPokemon, index) => {
-        return <PokemonList pokemon={currentPokemon} key={index} />;
-      })}
-    </div>
+      <div className="p-2" />
+      <div className="flex flex-col w-full max-w-2xl border">
+        {props.pokemon.map((currentPokemon, index) => {
+          return <PokemonList pokemon={currentPokemon} key={index} />;
+        })}
+      </div>
     </div>
   );
 };
