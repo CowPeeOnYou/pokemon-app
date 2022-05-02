@@ -16,23 +16,22 @@ const Home: NextPage = () => {
   const secondPokemon = trpc.useQuery(["get-pokemon-by-id", { id: second }]);
 
   const voteMutation = trpc.useMutation(["cast-vote"]);
-  
 
   if (firstPokemon.isLoading || secondPokemon.isLoading) return null;
 
   const votingHandler = (selected: number) => {
     //todo: fire mutaiton to persist changes
-    if (selected === first){
-      voteMutation.mutate({votedFor: first, votedAgainst: second})
+    if (selected === first) {
+      voteMutation.mutate({ votedFor: first, votedAgainst: second });
     } else {
-      voteMutation.mutate({votedFor: second, votedAgainst: first})
+      voteMutation.mutate({ votedFor: second, votedAgainst: first });
     }
     updateIds(getOptionsForVote);
   };
 
   return (
     <div className="h-screen w-screen flex flex-col justify-center items-center">
-      <div className="text-2xl text-center">Whi ch Pokemon is cuter?</div>
+      <div className="text-2xl text-center">Which Pokemon is cuter?</div>
       <div className="p-2" />
       <div className="border rounded p-8 flex justify-between items-center max-w-2xl">
         {!firstPokemon.isLoading &&
@@ -53,6 +52,9 @@ const Home: NextPage = () => {
           )}
         <div className="p-2" />
       </div>
+      <div className="absolute bottom-0 w-full text-xl text-center">
+        <a href="https://github.com/CowPeeOnYou/pokemon-app">Github</a>
+      </div>
     </div>
   );
 };
@@ -66,7 +68,13 @@ const PokemonList: React.FC<{
 }> = (props) => {
   return (
     <div className="flex flex-col items-center">
-      <Image className="w-64 h-64" layout='fixed' src={props.pokemon.sprites.front_default} width={256} height={256} />
+      <Image
+        className="w-64 h-64"
+        layout="fixed"
+        src={props.pokemon.sprites.front_default}
+        width={256}
+        height={256}
+      />
       <div className="text-xl text-center capitalize mt-[-2rem]">
         {props.pokemon.name}
       </div>
