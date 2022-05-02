@@ -30,34 +30,44 @@ const Home: NextPage = () => {
     updateIds(getOptionsForVote);
   };
 
+  const dataLoaded =
+    !firstPokemon.isLoading &&
+    firstPokemon.data &&
+    !secondPokemon.isLoading &&
+    secondPokemon.data;
+
+  // const dataLoaded = false;
   return (
-    <div className="h-screen w-screen flex flex-col justify-center items-center">
-      <div className="text-2xl text-center">Which Pokemon is cuter?</div>
+    <div className="h-screen w-screen flex flex-col justify-center items-center relative">
+      <div className="text-2xl text-center py-8">Which Pokemon is Cuter?</div>
+      {dataLoaded && (
+        <div className="border rounded p-8 flex justify-between items-center max-w-2xl">
+          <PokemonList
+            pokemon={firstPokemon.data}
+            vote={() => votingHandler(first)}
+          />
+          <div className="p-8">Vs</div>
+          <PokemonList
+            pokemon={secondPokemon.data}
+            vote={() => votingHandler(second)}
+          />
+        </div>
+      )}
+      {!dataLoaded && (
+        <div className="flex flex-col justify-center items-center">
+          <img width="24px" src="..//puff.svg" />
+          <img width="36px" src="..//puff.svg" />
+          <img width="48px" src="..//puff.svg" />
+          <img width="64px" src="..//puff.svg" />
+          <img width="80px" src="..//puff.svg" />
+        </div>
+      )}
       <div className="p-2" />
-      <div className="border rounded p-8 flex justify-between items-center max-w-2xl">
-        {!firstPokemon.isLoading &&
-          firstPokemon.data &&
-          !secondPokemon.isLoading &&
-          secondPokemon.data && (
-            <>
-              <PokemonList
-                pokemon={firstPokemon.data}
-                vote={() => votingHandler(first)}
-              />
-              <div className="p-8">Vs</div>
-              <PokemonList
-                pokemon={secondPokemon.data}
-                vote={() => votingHandler(second)}
-              />
-            </>
-          )}
-        <div className="p-2" />
-      </div>
-      <div className="absolute bottom-0 w-full text-xl text-center">
+      <div className="absolute bottom-0 w-full text-xl text-center mb-8 ">
         <a href="https://github.com/CowPeeOnYou/pokemon-app">Github</a>
         {" | "}
-        <Link href='/results'>
-          Results
+        <Link href="/results">
+          <a>Results</a>
         </Link>
       </div>
     </div>
