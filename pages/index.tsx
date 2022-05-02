@@ -3,6 +3,7 @@ import { useMemo, useState } from "react";
 import { getOptionsForVote } from "../utils/randomPokemon";
 import { inferQueryResponse, trpc } from "../utils/trpc";
 import type React from "react";
+import Link from "next/link";
 
 import Image from "next/image";
 
@@ -54,6 +55,10 @@ const Home: NextPage = () => {
       </div>
       <div className="absolute bottom-0 w-full text-xl text-center">
         <a href="https://github.com/CowPeeOnYou/pokemon-app">Github</a>
+        {" | "}
+        <Link href='/results'>
+          Results
+        </Link>
       </div>
     </div>
   );
