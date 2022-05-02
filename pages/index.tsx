@@ -71,7 +71,7 @@ const PokemonList: React.FC<{
       <Image
         className="w-64 h-64"
         layout="fixed"
-        src={props.pokemon.sprites.front_default}
+        src={props.pokemon.spriteUrl}
         width={256}
         height={256}
       />
