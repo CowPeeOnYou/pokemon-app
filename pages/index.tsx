@@ -1,5 +1,5 @@
 import type { NextPage } from "next";
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { getOptionsForVote } from "../utils/randomPokemon";
 import { inferQueryResponse, trpc } from "../utils/trpc";
 import type React from "react";
@@ -19,6 +19,11 @@ const Home: NextPage = () => {
     refetchOnWindowFocus: false,
   });
   const secondPokemon = trpc.useQuery(["get-pokemon-by-id", { id: second }], {
+    refetchInterval: false,
+    refetchOnReconnect: false,
+    refetchOnWindowFocus: false,
+  });
+  const isLoading = trpc.useQuery(["get-pokemon-by-id", { id: second }], {
     refetchInterval: false,
     refetchOnReconnect: false,
     refetchOnWindowFocus: false,
@@ -44,13 +49,13 @@ const Home: NextPage = () => {
     !secondPokemon.isLoading &&
     secondPokemon.data;
 
-  const fetchingNext = voteMutation.isLoading
+  const fetchingNext = voteMutation.isLoading || isLoading
 
   return (
     <div className="h-screen w-screen flex flex-col justify-center items-center relative">
       <div className="text-2xl text-center py-8">Which Pokemon is Cuter?</div>
       {dataLoaded && (
-        <div className="border rounded p-8 flex justify-between items-center max-w-2xl">
+        <div className="border rounded p-8 flex justify-between items-center max-w-2xl md:flex-row animate-ping-in">
           <PokemonList
             pokemon={firstPokemon.data}
             vote={() => votingHandler(first)}
