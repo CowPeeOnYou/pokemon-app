@@ -23,7 +23,11 @@ const Home: NextPage = () => {
     refetchOnReconnect: false,
     refetchOnWindowFocus: false,
   });
-  
+
+  const getCurrentUrl = () => {
+    navigator.clipboard.writeText(window.location.href);
+    alert('URL Copied!')
+  };
 
   const voteMutation = trpc.useMutation(["cast-vote"]);
 
@@ -45,7 +49,7 @@ const Home: NextPage = () => {
     !secondPokemon.isLoading &&
     secondPokemon.data;
 
-  const fetchingNext = voteMutation.isLoading
+  const fetchingNext = voteMutation.isLoading;
 
   return (
     <div className="h-screen w-screen flex flex-col justify-center items-center relative">
@@ -81,6 +85,8 @@ const Home: NextPage = () => {
         <Link href="/results">
           <a>Results</a>
         </Link>
+        {" | "}
+        <button onClick={()=>getCurrentUrl()}> Share</button>
       </div>
     </div>
   );
