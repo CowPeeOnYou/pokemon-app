@@ -1,10 +1,10 @@
 import { inferAsyncReturnType } from "@trpc/server";
-import { count } from "console";
 import type { GetServerSideProps } from "next";
 import { prisma } from "../backend/utils/prisma";
 import { AsyncReturnType } from "../utils/ts-bs";
 import Image from "next/image";
 import Link from "next/link";
+import { SetStateAction, useState } from "react";
 
 const getPokemonInOrder = async () => {
   return await prisma.pokemon.findMany({
@@ -53,6 +53,11 @@ const PokemonList: React.FC<{ pokemon: PokemonQueryResult[number] }> = ({
 const ResultsPage: React.FC<{
   pokemon: AsyncReturnType<typeof getPokemonInOrder>;
 }> = (props) => {
+  const [inOrder, setInOrder] = useState("descending");
+  const orderHandler = (e: { target: { value: SetStateAction<string> } }) => {
+    setInOrder(e.target.value);
+  };
+
   return (
     <>
       <Link href="/">
@@ -63,12 +68,42 @@ const ResultsPage: React.FC<{
       <div className="flex flex-col items-center">
         <h1 className="text-2xl p-4">Results</h1>
         <div className="p-2" />
+        <select
+          className="form-select form-select-lg mb-3
+      appearance-none
+      w-48
+      px-4
+      py-2
+      text-xl
+      text-center
+      text-gray-700
+      bg-white bg-clip-padding bg-no-repeat
+      border border-solid border-gray-300
+      rounded
+      transition
+      ease-in-out
+      m-0
+      focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none
+      items-center "
+          value={inOrder}
+          onChange={orderHandler}
+        >
+          <option value="descending">Descending</option>
+          <option value="ascending">Ascending</option>
+        </select>
         <div className="flex flex-col w-full max-w-2xl border">
-          {props.pokemon
-            .sort((a, b) => generateCountPercent(b) - generateCountPercent(a))
-            .map((currentPokemon, index) => {
-              return <PokemonList pokemon={currentPokemon} key={index} />;
-            })}
+          {inOrder === "descending" &&
+            props.pokemon
+              .sort((a, b) => generateCountPercent(b) - generateCountPercent(a))
+              .map((currentPokemon, index) => {
+                return <PokemonList pokemon={currentPokemon} key={index} />;
+              })}
+          {inOrder === "ascending" &&
+            props.pokemon
+              .sort((a, b) => generateCountPercent(a) - generateCountPercent(b))
+              .map((currentPokemon, index) => {
+                return <PokemonList pokemon={currentPokemon} key={index} />;
+              })}
         </div>
       </div>
     </>
