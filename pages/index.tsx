@@ -78,7 +78,7 @@ const Home: NextPage = () => {
         </div>
       )}
       <div className="p-2" />
-      <div className="absolute bottom-0 w-full text-xl text-center mb-8 ">
+      <div className="absolute bottom-0 w-full text-xl text-center my-8 ">
         <a href="https://github.com/CowPeeOnYou/pokemon-app">Github</a>
         {" | "}
         <Link href="/results">
