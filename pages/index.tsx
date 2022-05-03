@@ -44,7 +44,9 @@ const Home: NextPage = () => {
   };
 
   const dataLoaded =
+    !firstPokemon.isLoading &&
     firstPokemon.data &&
+    !secondPokemon.isLoading &&
     secondPokemon.data;
 
 
