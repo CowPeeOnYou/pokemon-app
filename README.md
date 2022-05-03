@@ -21,8 +21,8 @@ Required dependencies:
 How to Set Up:
 <ol>
 <li> Clone repo
-<li> `npm install`
-<li> `.env` file should be configured for `DATABASE_URL` and `SHADOW_URL`
-<li> Initiate Prisma `npx prisma migrate dev`
-<li> Run script to hydrate the database `npm run ts-node ./scripts/fill-db.ts`
-<li> `npm run dev`
+<li> **`npm install`**
+<li> **`.env`** file should be configured for **`DATABASE_URL` **and **`SHADOW_URL`**
+<li> Initiate Prisma **`npx prisma migrate dev`**
+<li> Run script to hydrate the database **`npm run ts-node ./scripts/fill-db.ts`**
+<li> **`npm run dev`**

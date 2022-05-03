@@ -13,8 +13,16 @@ const btn =
 const Home: NextPage = () => {
   const [ids, updateIds] = useState(() => getOptionsForVote());
   const [first, second] = ids;
-  const firstPokemon = trpc.useQuery(["get-pokemon-by-id", { id: first }]);
-  const secondPokemon = trpc.useQuery(["get-pokemon-by-id", { id: second }]);
+  const firstPokemon = trpc.useQuery(["get-pokemon-by-id", { id: first }], {
+    refetchInterval: false,
+    refetchOnReconnect: false,
+    refetchOnWindowFocus: false,
+  });
+  const secondPokemon = trpc.useQuery(["get-pokemon-by-id", { id: second }], {
+    refetchInterval: false,
+    refetchOnReconnect: false,
+    refetchOnWindowFocus: false,
+  });
 
   const voteMutation = trpc.useMutation(["cast-vote"]);
 
@@ -36,7 +44,8 @@ const Home: NextPage = () => {
     !secondPokemon.isLoading &&
     secondPokemon.data;
 
-  // const dataLoaded = false;
+  const fetchingNext = voteMutation.isLoading
+
   return (
     <div className="h-screen w-screen flex flex-col justify-center items-center relative">
       <div className="text-2xl text-center py-8">Which Pokemon is Cuter?</div>
@@ -45,11 +54,13 @@ const Home: NextPage = () => {
           <PokemonList
             pokemon={firstPokemon.data}
             vote={() => votingHandler(first)}
+            disabled={fetchingNext}
           />
           <div className="p-8">Vs</div>
           <PokemonList
             pokemon={secondPokemon.data}
             vote={() => votingHandler(second)}
+            disabled={fetchingNext}
           />
         </div>
       )}
@@ -80,6 +91,7 @@ type PokemonFromServer = inferQueryResponse<"get-pokemon-by-id">;
 const PokemonList: React.FC<{
   pokemon: PokemonFromServer;
   vote: () => void;
+  disabled: boolean;
 }> = (props) => {
   return (
     <div className="flex flex-col items-center">
