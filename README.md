@@ -1,18 +1,28 @@
-#Roundest - Which Pokemon is the cutest?
-Hooby project
+#Cutest - Which Pokemon is the cutest?
+Hobby project
 
+
+## Technologies Used
+<ul>
+<li> NextJS
+<li> TypeScript
+<li> Prisma
+<li> MySQL
+<li> TailwindCSS
+<li> tRPC
+</ul>
 
 ## Getting Started
 
-First, run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
-```
-
-perist data fetched form pokemonapi
-create results page with counting/sorting
-use next/image to cache image
-move images to bulbapedia
+Required dependencies:
+	<li> MySQL database
+	<li> npm
+	
+How to Set Up:
+<ol>
+<li> Clone repo
+<li> `npm install`
+<li> `.env` file should be configured for `DATABASE_URL` and `SHADOW_URL`
+<li> Initiate Prisma `npx prisma migrate dev`
+<li> Run script to hydrate the database `npm run ts-node ./scripts/fill-db.ts`
+<li> `npm run dev`
