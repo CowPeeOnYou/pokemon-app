@@ -107,7 +107,7 @@ const PokemonList: React.FC<{
         width={256}
         height={256}
       />
-      <div className="text-xl text-center capitalize mt-[-2rem]">
+      <div className="text-xl text-center capitalize mt-[-2rem] mb-2">
         {props.pokemon.name}
       </div>
       <button className={btn} onClick={() => props.vote()}>
