@@ -54,7 +54,7 @@ const Home: NextPage = () => {
       <Head>
         <title>Cutest Pokemon!</title>
       </Head>
-      <div className="text-2xl text-center py-8">Which Pokemon is Cuter?</div>
+      <div className="text-2xl md:text-xl text-center py-8">Which Pokemon is Cuter?</div>
       {dataLoaded && (
         <div className=" p-16 flex justify-between items-center max-w-2xl flex-col md:flex-row ">
           <PokemonList
