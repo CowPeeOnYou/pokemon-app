@@ -51,7 +51,7 @@ const Home: NextPage = () => {
     <div className="h-screen w-screen flex flex-col justify-center items-center relative">
       <div className="text-2xl text-center py-8">Which Pokemon is Cuter?</div>
       {dataLoaded && (
-        <div className="border rounded p-8 flex justify-between items-center max-w-2xl md:flex-row animate-ping-in">
+        <div className="border rounded p-8 flex justify-between items-center max-w-2xl md:flex-row ">
           <PokemonList
             pokemon={firstPokemon.data}
             vote={() => votingHandler(first)}
@@ -97,7 +97,7 @@ const PokemonList: React.FC<{
   return (
     <div className="flex flex-col items-center">
       <Image
-        className="w-64 h-64"
+        className="w-64 h-64 animate-bounce"
         layout="fixed"
         src={props.pokemon.spriteUrl}
         width={256}
