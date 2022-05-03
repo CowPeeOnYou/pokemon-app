@@ -23,11 +23,7 @@ const Home: NextPage = () => {
     refetchOnReconnect: false,
     refetchOnWindowFocus: false,
   });
-  const isLoading = trpc.useQuery(["get-pokemon-by-id", { id: second }], {
-    refetchInterval: false,
-    refetchOnReconnect: false,
-    refetchOnWindowFocus: false,
-  });
+  
 
   const voteMutation = trpc.useMutation(["cast-vote"]);
 
@@ -49,7 +45,7 @@ const Home: NextPage = () => {
     !secondPokemon.isLoading &&
     secondPokemon.data;
 
-  const fetchingNext = voteMutation.isLoading || isLoading
+  const fetchingNext = voteMutation.isLoading
 
   return (
     <div className="h-screen w-screen flex flex-col justify-center items-center relative">
