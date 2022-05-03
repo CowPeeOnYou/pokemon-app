@@ -1,7 +1,7 @@
-##Cutest - Which Pokemon is the cutest?
+## Cutest - Which Pokemon is the cutest?
 Voting Application which utilises tRPC's features to efficiently linked the database and front-end
 
-##URL
+## URL
 *`https://pokemon-app-git-main-cowpeeonyou.vercel.app`*
 
 
