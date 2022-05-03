@@ -56,7 +56,7 @@ const Home: NextPage = () => {
       </Head>
       <div className="text-2xl text-center py-8">Which Pokemon is Cuter?</div>
       {dataLoaded && (
-        <div className=" p-16 flex justify-between items-center max-w-2xl md:flex-row ">
+        <div className=" p-16 flex justify-between items-center max-w-2xl flex-col md:flex-row ">
           <PokemonList
             pokemon={firstPokemon.data}
             vote={() => votingHandler(first)}
