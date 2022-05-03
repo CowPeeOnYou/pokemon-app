@@ -35,9 +35,10 @@ const generateCountPercent = (pokemon: PokemonQueryResult[number]) => {
   return (VoteFor / (VoteFor + VoteAgainst)) * 100;
 };
 
-const PokemonList: React.FC<{ pokemon: PokemonQueryResult[number] }> = ({
-  pokemon,
-}) => {
+const PokemonList: React.FC<{
+  pokemon: PokemonQueryResult[number];
+  rank: number;
+}> = ({ pokemon, rank }) => {
   return (
     <div className="flex border-b p-2 items-center justify-between">
       {" "}
@@ -45,7 +46,12 @@ const PokemonList: React.FC<{ pokemon: PokemonQueryResult[number] }> = ({
         <Image layout="fixed" src={pokemon.spriteUrl} width={64} height={64} />
         <div className="pl-2 capitalize">{pokemon.name}</div>
       </div>
-      <div className="pr-3">{generateCountPercent(pokemon) + "%"}</div>
+      <div className="pr-3">
+        {generateCountPercent(pokemon).toFixed(2) + "%"}
+      </div>
+      <div className="absolute top-0 left-0 z-20 flex items-center justify-center px-2 font-semibold text-white bg-gray-600 border border-gray-500 shadow-lg rounded-br-md">
+        {rank}
+      </div>
     </div>
   );
 };
@@ -96,13 +102,25 @@ const ResultsPage: React.FC<{
             props.pokemon
               .sort((a, b) => generateCountPercent(b) - generateCountPercent(a))
               .map((currentPokemon, index) => {
-                return <PokemonList pokemon={currentPokemon} key={index} />;
+                return (
+                  <PokemonList
+                    pokemon={currentPokemon}
+                    key={index}
+                    rank={index + 1}
+                  />
+                );
               })}
           {inOrder === "ascending" &&
             props.pokemon
               .sort((a, b) => generateCountPercent(a) - generateCountPercent(b))
               .map((currentPokemon, index) => {
-                return <PokemonList pokemon={currentPokemon} key={index} />;
+                return (
+                  <PokemonList
+                    pokemon={currentPokemon}
+                    key={index}
+                    rank={index + 1}
+                  />
+                );
               })}
         </div>
       </div>
