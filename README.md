@@ -24,10 +24,10 @@ Required dependencies:
 How to Set Up:
 <ol>
 <li> Clone repo
-<li> **`npm install`**
-<li> **`.env`** file should be configured for **`DATABASE_URL` **and **`SHADOW_URL`**
-<li> Initiate Prisma **`npx prisma migrate dev`**
-<li> Run script to hydrate the database **`npm run ts-node ./scripts/fill-db.ts`**
-<li> **`npm run dev`**
+<li> <b>npm install</b> 
+<li> <b>`.env`</b> file should be configured for <b>DATABASE_URL</b>  and <b>SHADOW_URL</b> 
+<li> Initiate Prisma <b>npx prisma migrate dev</b> 
+<li> Run script to hydrate the database <b>npm run ts-node ./scripts/fill-db.ts</b> 
+<li> <b>npm run dev</b> 
 </ol>
 
