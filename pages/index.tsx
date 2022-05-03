@@ -4,7 +4,7 @@ import { getOptionsForVote } from "../utils/randomPokemon";
 import { inferQueryResponse, trpc } from "../utils/trpc";
 import type React from "react";
 import Link from "next/link";
-
+import Head from "next/head";
 import Image from "next/image";
 
 const btn =
@@ -26,7 +26,7 @@ const Home: NextPage = () => {
 
   const getCurrentUrl = () => {
     navigator.clipboard.writeText(window.location.href);
-    alert('URL Copied!')
+    alert("URL Copied!");
   };
 
   const voteMutation = trpc.useMutation(["cast-vote"]);
@@ -49,23 +49,22 @@ const Home: NextPage = () => {
     !secondPokemon.isLoading &&
     secondPokemon.data;
 
-  const fetchingNext = voteMutation.isLoading;
-
   return (
-    <div className="h-screen w-screen flex flex-col justify-center items-center relative">
+    <div className="h-screen w-screen flex flex-col justify-between items-center relative">
+      <Head>
+        <title>Cutest Pokemon!</title>
+      </Head>
       <div className="text-2xl text-center py-8">Which Pokemon is Cuter?</div>
       {dataLoaded && (
         <div className=" p-16 flex justify-between items-center max-w-2xl md:flex-row ">
           <PokemonList
             pokemon={firstPokemon.data}
             vote={() => votingHandler(first)}
-            disabled={fetchingNext}
           />
           <div className="text-2xl text-center text-bold pt-8">Vs</div>
           <PokemonList
             pokemon={secondPokemon.data}
             vote={() => votingHandler(second)}
-            disabled={fetchingNext}
           />
         </div>
       )}
@@ -86,7 +85,7 @@ const Home: NextPage = () => {
           <a>Results</a>
         </Link>
         {" | "}
-        <button onClick={()=>getCurrentUrl()}> Share</button>
+        <button onClick={() => getCurrentUrl()}> Share</button>
       </div>
     </div>
   );
@@ -98,7 +97,6 @@ type PokemonFromServer = inferQueryResponse<"get-pokemon-by-id">;
 const PokemonList: React.FC<{
   pokemon: PokemonFromServer;
   vote: () => void;
-  disabled: boolean;
 }> = (props) => {
   return (
     <div className="flex flex-col items-center">
