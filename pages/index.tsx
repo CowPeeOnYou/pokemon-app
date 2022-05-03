@@ -44,10 +44,10 @@ const Home: NextPage = () => {
   };
 
   const dataLoaded =
-    !firstPokemon.isLoading &&
     firstPokemon.data &&
-    !secondPokemon.isLoading &&
     secondPokemon.data;
+
+
 
   return (
     <div className="h-screen w-screen flex flex-col justify-between items-center relative">
