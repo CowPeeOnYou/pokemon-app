@@ -55,13 +55,13 @@ const Home: NextPage = () => {
     <div className="h-screen w-screen flex flex-col justify-center items-center relative">
       <div className="text-2xl text-center py-8">Which Pokemon is Cuter?</div>
       {dataLoaded && (
-        <div className="border rounded p-16 flex justify-between items-center max-w-2xl md:flex-row ">
+        <div className=" p-16 flex justify-between items-center max-w-2xl md:flex-row ">
           <PokemonList
             pokemon={firstPokemon.data}
             vote={() => votingHandler(first)}
             disabled={fetchingNext}
           />
-          <div className="p-8">Vs</div>
+          <div className="text-2xl text-center text-bold pt-8">Vs</div>
           <PokemonList
             pokemon={secondPokemon.data}
             vote={() => votingHandler(second)}
